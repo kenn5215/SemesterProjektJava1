@@ -1,4 +1,4 @@
-import kapitel_04.Billetautomat;
+import com.company.Billetautomat;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
