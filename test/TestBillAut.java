@@ -15,7 +15,7 @@ public class TestBillAut
 
     @Test
     public void prøve2() {
-        Billetautomat ba = new Billetautomat(10);
+        Billetautomat ba = new Billetautomat(12);
         assertEquals(12, ba.getBilletpris());
     }
 }
