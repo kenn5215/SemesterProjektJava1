@@ -1,49 +1,54 @@
 package com.company;
 
-/**
- * Model af en simpel billetautomat til enkeltbilletter med en fast pris.
- */
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 public class Billetautomat {
     private int pris;    // Prisen for én billet.
     private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
-    private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
+    private static int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
+    private static File file = new File("AutomatData");
 
-    /**
-     * Opret en billetautomat, der sælger billetter til en given billetpris.
-     * @param billetpris skal være større end nul (p.t. bliver det ikke tjekket)
-     */
-    public Billetautomat(int billetpris) {
-        pris = billetpris;
+    public Billetautomat() {
+        pris = 40;
+        balance = 0;
     }
 
-    /**
-     * Opret en billetautomat, der sælger billetter til en given billetpris
-     * @param billetpris skal være større end nul (p.t. bliver det ikke tjekket)
-     * @param startbalance mængden af penge automaten allerede indeholder
-     */
     public Billetautomat(int billetpris, int startbalance) {
         int pris = billetpris;
         balance = startbalance;
     }
 
-    /**
-     * Giver prisen for en billet.
-     */
-    public int getBilletpris() {
-        int resultat = pris;
-        return resultat;
+
+    public void skriveTilFil(int voksenbilletPris){
+
+        int total = 0;
+        try{
+            Scanner scan = new Scanner(file);
+            total = scan.nextInt() + voksenbilletPris;
+
+            PrintWriter pw = new PrintWriter(file);
+            pw.println( total + " kr.");
+            pw.close();
+        }catch (Exception u){
+            System.out.println("File is not working");
+        }
+
     }
 
-    /**
-     * Modtag nogle penge (i kroner) fra en kunde.
-     */
+    public int getBilletpris() {
+        return pris;
+    }
+
+
     public void indsætPenge(int beløb) {
         balance = balance + beløb;
     }
 
-    /**
-     * Giver balancen (beløbet maskinen har modtaget til den næste billet).
-     */
+
     public int getBalance() {
         return balance;
     }
@@ -51,7 +56,7 @@ public class Billetautomat {
     /** Udskriv en billet. */
     public void udskrivBillet() {
         antalBilletterSolgt = antalBilletterSolgt + 1;
-        balance = 0;             // Nulstil balance
+        balance -= pris;             // Nulstil balance
 
         System.out.println("##########B##T##########");
         System.out.println("# Borgen Trafikselskab #");
