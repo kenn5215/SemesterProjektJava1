@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Billetautomat {
     private int pris;    // Prisen for én billet.
     private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
-    private static int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
-    private static File file = new File("AutomatData");
+    private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
+    private File file = new File("AutomatData");
 
     public Billetautomat() {
         pris = 40;
