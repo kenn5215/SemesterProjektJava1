@@ -5,40 +5,64 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Billetautomat {
-    private int pris;    // Prisen for én billet.
+    private int børnePris;    // Børne Prisen for én billet.
+    private int voksenPris;    // Voksen Prisen for én billet.
+    private int cykelPris;    // Voksen Prisen for én billet.
     private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
     private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
-    private File file = new File("AutomatData");
 
     public Billetautomat() {
-        pris = 40;
+        StartFilTjek();
+        voksenPris = 40;
         balance = 0;
     }
 
     public Billetautomat(int billetpris, int startbalance) {
-        pris = billetpris;
+        voksenPris = billetpris;
         balance = startbalance;
     }
 
-
-    public void skriveTilFil(int voksenbilletPris){
-
-        int total = 0;
-        try{
-            Scanner scan = new Scanner(file);
-            total = scan.nextInt() + voksenbilletPris;
-
-            PrintWriter pw = new PrintWriter(file);
-            pw.println( total + " kr.");
-            pw.close();
-        }catch (Exception u){
-            System.out.println("File is not working");
-        }
-
+    private void GetIndstillinger(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Skriv prisen for en børne billet:");
+        børnePris = scan.nextInt();
+        System.out.println("Skriv prisen for en voksen billet:");
+        voksenPris = scan.nextInt();
+        System.out.println("Skriv prisen for en voksen billet:");
+        cykelPris = scan.nextInt();
     }
 
+
+    private void StartFilTjek(){
+        //Opretter vores filobjekt kaldet startfil
+        //Denne fil bruges til at indeholde alle startindstillingerne
+        //Så når vi starter programmet vil vi gerne vide om der er lavet indstillinger til maskinen
+        File startFil = new File("startFil");
+
+        //Tjekker om filen er tom
+        boolean erTom;
+        erTom = startFil.length() == 0;
+
+        if (erTom) {
+            try {
+
+                PrintWriter pw = new PrintWriter(startFil);
+                GetIndstillinger();
+                pw.println("Børne billet = " + børnePris + " KR.");
+                pw.println("voksen billet = " + voksenPris + " KR.");
+                pw.println("voksen billet = " + cykelPris + " KR.");
+                pw.close();
+            } catch (Exception u) {
+                System.out.println("Kunne ikke skrive til startFilen ");
+            }
+        }else {
+            System.out.println("Denne maskine er indstillet!");
+        }
+    }
+
+
     public int getBilletpris() {
-        return pris;
+        return voksenPris;
     }
 
 
@@ -54,13 +78,13 @@ public class Billetautomat {
     /** Udskriv en billet. */
     public void udskrivBillet() {
         antalBilletterSolgt = antalBilletterSolgt + 1;
-        balance -= pris;             // Nulstil balance
+        balance -= voksenPris;             // Nulstil balance
 
         System.out.println("##########B##T##########");
         System.out.println("# Borgen Trafikselskab #");
         System.out.println("#                      #");
         System.out.println("#        Billet        #");
-        System.out.println("#        " + pris + " kr.        #");
+        System.out.println("#        " + voksenPris + " kr.        #");
         System.out.println("#                      #");
         System.out.println("# Du har " + balance + " kr til gode #");
         System.out.println("##########B##T##########");
@@ -68,11 +92,11 @@ public class Billetautomat {
     }
 
     public void setBilletpris(String montørkode, int nyPris) {
-        if (montørkode.equals("1234")) pris = nyPris;
+        if (montørkode.equals("1234")) voksenPris = nyPris;
         else System.err.println("Kunne ikke sætte pris - forkert kode");
     }
 
     public int getSamletSalgsbeløb(String montørkode) {
-        if (montørkode.equals("1234")); return pris * antalBilletterSolgt;
+        if (montørkode.equals("1234")); return voksenPris * antalBilletterSolgt;
     }
 }
