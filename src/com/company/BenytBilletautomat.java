@@ -1,10 +1,12 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class BenytBilletautomat {
 
     public static void main(String[] args) {
-        Billetautomat billetautomat = new Billetautomat();
+        Billetautomat automat = new Billetautomat();
 
-        billetautomat.skriveTilFil(80);
+
     }
 }
