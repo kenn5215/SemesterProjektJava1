@@ -18,7 +18,7 @@ public class Billetautomat {
     }
 
     public Billetautomat(int billetpris, int startbalance) {
-        int pris = billetpris;
+        pris = billetpris;
         balance = startbalance;
     }
 
