@@ -13,8 +13,6 @@ public class Billetautomat {
 
     public Billetautomat() {
         StartFilTjek();
-        voksenPris = 40;
-        balance = 0;
     }
 
     public Billetautomat(int billetpris, int startbalance) {
@@ -30,8 +28,8 @@ public class Billetautomat {
         voksenPris = scan.nextInt();
         System.out.println("Skriv prisen for en voksen billet:");
         cykelPris = scan.nextInt();
-    }
 
+    }
 
     private void StartFilTjek(){
         //Opretter vores filobjekt kaldet startfil
@@ -45,7 +43,6 @@ public class Billetautomat {
 
         if (erTom) {
             try {
-
                 PrintWriter pw = new PrintWriter(startFil);
                 GetIndstillinger();
                 pw.println("Børne billet = " + børnePris + " KR.");
@@ -59,13 +56,6 @@ public class Billetautomat {
             System.out.println("Denne maskine er indstillet!");
         }
     }
-
-
-    public int getBilletpris() {
-        return voksenPris;
-    }
-
-
     public void indsætPenge(int beløb) {
         balance = balance + beløb;
     }
@@ -91,12 +81,6 @@ public class Billetautomat {
         System.out.println();
     }
 
-    public void setBilletpris(String montørkode, int nyPris) {
-        if (montørkode.equals("1234")) voksenPris = nyPris;
-        else System.err.println("Kunne ikke sætte pris - forkert kode");
-    }
 
-    public int getSamletSalgsbeløb(String montørkode) {
-        if (montørkode.equals("1234")); return voksenPris * antalBilletterSolgt;
-    }
+
 }

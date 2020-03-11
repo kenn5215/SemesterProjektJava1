@@ -3,7 +3,7 @@ package com.company;
 import java.io.File;
 import java.util.Date;
 
-public class indkøbsKurv {
+public class IndkøbsKurv {
     private int voksenBilletAntal;
     private int børneBilletAntal;
     private int cykelBilletAntal;
@@ -11,7 +11,9 @@ public class indkøbsKurv {
     private int børneBilletPris;
     private int cykelBilletPris;
 
-    public indkøbsKurv (int voPris, int bøPris, int cyPris)
+
+
+    public IndkøbsKurv(int voPris, int bøPris, int cyPris)
     {
         voksenBilletPris = voPris;
         børneBilletPris = bøPris;
