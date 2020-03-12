@@ -34,6 +34,7 @@ public class BenytBilletautomat {
                 case 1:
                     KøbBillet(automat, kurv);
                     break;
+
                 case 2:
                     kurv.getKurvTotalPris();
                     break;

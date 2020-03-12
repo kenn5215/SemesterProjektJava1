@@ -80,6 +80,7 @@ public class IndkøbsKurv {
 
 
 
+
     }
 
     private void StartFilTjek(){

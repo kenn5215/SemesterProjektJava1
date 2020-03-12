@@ -15,6 +15,8 @@ public class Billetautomat {
     }
 
 
+
+
     public void indsætPenge(int beløb) {
         balance = balance + beløb;
     }
