@@ -21,7 +21,7 @@ public class Billetautomat {
         File login = new File("LoginOplysninger");
 
         if(login.length() == 0){
-            System.out.println("Der ikke oprettet en bruger, venlist opret en bruger");
+            System.out.println("Denne maskine er helt ny og der ikke oprettet en bruger, venlist opret en bruger");
             System.out.println("Vælg dit brugernavn:");
             brugernavn = scan.next();
             System.out.println("vælg dit kodeord:");
@@ -31,6 +31,7 @@ public class Billetautomat {
                 PrintWriter pw = new PrintWriter(login);
                 pw.println(brugernavn);
                 pw.println(kodeord);
+                pw.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("Kunne ikke skrive til filen!");
