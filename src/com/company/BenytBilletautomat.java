@@ -57,27 +57,7 @@ public class BenytBilletautomat {
                     }
                     break;
                 case 4:
-                    System.out.println("Der er kun adgang for instalatører");
-                    System.out.println("Skriv dit brugernavn:");
-                    String brugerNavn = scan.next();
-                    System.out.println("Skriv dit kodeord");
-                    String kodeord = scan.next();
-
-                    if(brugerNavn.equals("kenn5215") && kodeord.equals("1234")){
-                        System.out.println("============================================");
-                        System.out.println("Ny børnebillet pris:");
-                        int nyBørnePris = scan.nextInt();
-                        System.out.println("Ny voksenbillet pris:");
-                        int nyVoksenPris = scan.nextInt();
-                        System.out.println("Ny cykelbillet pris:");
-                        int nyCykelPris = scan.nextInt();
-                        System.out.println("============================================");
-                        kurv.setBilletPris(nyVoksenPris,nyBørnePris,nyCykelPris);
-                    }else{
-                        System.out.println("Forkert brugernavn eller adgangskode....");
-                        System.out.println("Skriv et eller andet for at gå tilbage");
-                        String ignorer = scan.next();
-                    }
+                    automat.adminMenu(kurv);
                     break;
                 case 0:
                     System.out.println("============================================");
