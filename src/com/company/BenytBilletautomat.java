@@ -50,7 +50,7 @@ public class BenytBilletautomat {
                         System.out.println("Maks én cykel pr. person.");
                         System.out.println("============================================");
                         System.out.println("Grundet Covid19 vil vi bede alle om\nikke at sidde for tæt. " +
-                                "\nHvis du er i tvivl om du er\nsmittet så ungå at rejse med os");
+                                        "\nHvis du er i tvivl om du er\nsmittet så ungå at rejse med os");
                         System.out.println("============================================\n");
                         System.out.println("Tryk 0 for at gå tilbage\n");
                         tilbage = scan.nextInt();
