@@ -37,7 +37,11 @@ public class BenytBilletautomat {
                     break;
 
                 case 2:
-                    System.out.println("Du har " + kurv.getBørneBilletAntal() + " " + kurv.getBørneBilletPris() + " kr.");
+                    System.out.println("================================");
+                    System.out.println("Du har " + kurv.getBørneBilletAntal() + " børnebilletter " + kurv.getBørneBilletPris()*kurv.getBørneBilletAntal() + " kr.");
+                    System.out.println("Du har " + kurv.getVoksenBilletAntal() + " voksenbilletter " + kurv.getVoksenBilletPris()*kurv.getVoksenBilletAntal() + " kr.");
+                    System.out.println("Du har " + kurv.getCykelBilletAntal() + " cykelbilletter " + kurv.getCykelBilletPris()*kurv.getCykelBilletAntal() + " kr.");
+                    System.out.println("================================");
                     break;
                 case 3:
                     int tilbage = 1;
