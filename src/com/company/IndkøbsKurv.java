@@ -41,10 +41,11 @@ public class IndkøbsKurv {
 
                 String[] prisData = new String[3];
 
+                //Læser de tre linjer fra startfilen og ligger dem i et string array
                 for (int i = 0; i < 3; i++) {
                     prisData[i] = reader.readLine();
                 }
-
+                //kalder min funktion for at læse de dataer der står i filen
                 for (int i = 0; i < 3; i++) {
                     LæsFraFil(i, prisData);
                 }
@@ -118,7 +119,10 @@ public class IndkøbsKurv {
     {
         if(antal<1 || antal>30)
         {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             System.out.println("Antal billetter ikke accepteret.");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
             return;
         }
         if(x=='v')

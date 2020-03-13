@@ -52,7 +52,7 @@ public class Billetautomat {
     }
 
 
-    public void adminMenu(IndkøbsKurv kurv){
+    public void adminMenu(IndkøbsKurv kurv, Translog translog){
         Scanner scan = new Scanner(System.in);
 
         loginOplysninger();
@@ -69,7 +69,15 @@ public class Billetautomat {
         if (intastetBrugerNavn.equals(brugernavn) && intastetKodeord.equals(kodeord)) {
             int option = 1;
             while (option != 0) {
-                System.out.println("menu");
+                System.out.println("============================================");
+                System.out.println("Du har følgende muligheder:                 ");
+                System.out.println("============================================");
+                System.out.println("Tryk 1 for: Ændre billetprisen              ");
+                System.out.println("********************************************");
+                System.out.println("Tryk 2 for: Print log                       ");
+                System.out.println("********************************************");
+                System.out.println("Tryk 0 for: Afslut                          ");
+                System.out.println("********************************************");
                 option = scan.nextInt();
                 switch (option) {
                     case 1:
@@ -84,6 +92,7 @@ public class Billetautomat {
                         kurv.setBilletPris(nyVoksenPris, nyBørnePris, nyCykelPris);
                         break;
                     case 2:
+                        translog.printAlleLog();
                         break;
                 }
             }
@@ -103,7 +112,7 @@ public class Billetautomat {
         return balance;
     }
 
-    /** Udskriv en billet. */
+
     public void udskrivBillet() {
         antalBilletterSolgt = antalBilletterSolgt + 1;
         balance -= voksenPris;             // Nulstil balance

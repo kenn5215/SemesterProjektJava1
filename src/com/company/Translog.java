@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class transLog {
+public class Translog {
 
     /*Vi har i vores transaktionslog valgt at indføre 3 handlinger.
      *1: Indsæt penge. 2: Udskriv billet. 3: Udbetal returbeløb.
