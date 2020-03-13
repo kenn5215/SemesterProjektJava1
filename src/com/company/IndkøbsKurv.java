@@ -1,18 +1,15 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class IndkøbsKurv {
-    private int voksenBilletAntal = 0;
-    private int børneBilletAntal = 0;
-    private int cykelBilletAntal = 0;
-    private int voksenBilletPris = 0;
-    private int børneBilletPris = 0;
-    private int cykelBilletPris = 0;
+    private int voksenBilletAntal;
+    private int børneBilletAntal;
+    private int cykelBilletAntal;
+    private int voksenBilletPris;
+    private int børneBilletPris;
+    private int cykelBilletPris;
 
 
 
@@ -21,6 +18,9 @@ public class IndkøbsKurv {
         voksenBilletAntal = 0;
         børneBilletAntal = 0;
         cykelBilletAntal = 0;
+        voksenBilletPris = 0;
+        børneBilletPris = 0;
+        cykelBilletPris = 0;
         StartFilTjek();
     }
 
@@ -45,32 +45,10 @@ public class IndkøbsKurv {
                     prisData[i] = reader.readLine();
                 }
 
-                for (int i = 0; i < prisData[0].length(); i++) {
-                    while (Character.isDigit(prisData[0].charAt(i))){
-                        børneBilletPris *= 10;
-                        børneBilletPris += (prisData[0].charAt(i)) -'0';
-
-                        i++;
-                    }
+                for (int i = 0; i < 3; i++) {
+                    LæsFraFil(i, prisData);
                 }
 
-                for (int i = 0; i < prisData[1].length(); i++) {
-                    while (Character.isDigit(prisData[1].charAt(i))){
-                        voksenBilletPris *= 10;
-                        voksenBilletPris += (prisData[1].charAt(i)) -'0';
-
-                        i++;
-                    }
-                }
-
-                for (int i = 0; i < prisData[2].length(); i++) {
-                    while (Character.isDigit(prisData[2].charAt(i))){
-                        cykelBilletPris *= 10;
-                        cykelBilletPris += (prisData[2].charAt(i)) -'0';
-
-                        i++;
-                    }
-                }
 
             }catch (Exception u){
                 System.out.println("Kunne ikke læse fra filen!");
@@ -78,9 +56,33 @@ public class IndkøbsKurv {
             }
         }
 
+    }
 
+    private void LæsFraFil(int linje, String[] prisData){
+        int i = 0;
+        //Her læser jeg dataen fra filen startfil og jeg ved at på linje 0 er børneprisen på linje 1 er voksenprisen osv.
+        //Så derfor tjekker jeg hver plads på hver linje om jeg finder et tal og hvis jeg gør bliver det prisen
+        while (prisData[linje].length() > i){
+            while (Character.isDigit(prisData[linje].charAt(i))){
 
-
+                switch (linje){
+                    case 0:
+                        børneBilletPris *= 10;
+                        børneBilletPris += (prisData[linje].charAt(i)) -'0';
+                        break;
+                    case 1:
+                        voksenBilletPris *= 10;
+                        voksenBilletPris += (prisData[linje].charAt(i)) -'0';
+                        break;
+                    case 2:
+                        cykelBilletPris *= 10;
+                        cykelBilletPris += (prisData[linje].charAt(i)) -'0';
+                        break;
+                }
+                i++;
+            }
+            i++;
+        }
     }
 
     private void StartFilTjek(){
@@ -151,6 +153,19 @@ public class IndkøbsKurv {
     {
         return cykelBilletPris;
     }
+    //Retunerer antallet af billetter i kruv
+    public int getVoksenBilletAntal()
+    {
+        return voksenBilletAntal;
+    }
+    public int getBørneBilletAntal()
+    {
+        return børneBilletAntal;
+    }
+    public int getCykelBilletAntal()
+    {
+        return cykelBilletAntal;
+    }
 
     public void tømKurv()
     {
@@ -198,5 +213,16 @@ public class IndkøbsKurv {
         cykelBilletPris = cyPris;
     }
 
+    public void skrivTilFIl(){
+        try (PrintWriter pw = new PrintWriter("startFil")) {
+            pw.println("Børnebillet = " + børneBilletPris + " KR.");
+            pw.println("voksenbillet = " + voksenBilletPris + " KR.");
+            pw.println("Cykelbillet = " + cykelBilletPris + " KR.");
+            pw.close();
+        }catch (Exception u){
+            System.out.println("Kunne ikke skrive til startFilen");
+            u.printStackTrace();
+        }
+    }
 
 }

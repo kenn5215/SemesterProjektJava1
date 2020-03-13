@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class BenytBilletautomat {
@@ -13,7 +12,7 @@ public class BenytBilletautomat {
 
         System.out.println("============================================");
         System.out.println("| Hej velkommen til denne billet automat    |");
-        System.out.println("============================================\n");
+        System.out.println("|                                           |");
 
         int option = 1;
         while(option != 0) {
@@ -26,6 +25,8 @@ public class BenytBilletautomat {
             System.out.println("********************************************");
             System.out.println("Tryk 3 for: Læs regler for at rejse med os  ");
             System.out.println("********************************************");
+            System.out.println("Tryk 4 for: Admin adgang                    ");
+            System.out.println("********************************************");
             System.out.println("Tryk 0 for: Afslut                          ");
             System.out.println("********************************************");
             option = scan.nextInt();
@@ -36,7 +37,7 @@ public class BenytBilletautomat {
                     break;
 
                 case 2:
-                    kurv.getKurvTotalPris();
+                    System.out.println("Du har " + kurv.getBørneBilletAntal() + " " + kurv.getBørneBilletPris() + " kr.");
                     break;
                 case 3:
                     int tilbage = 1;
@@ -55,6 +56,29 @@ public class BenytBilletautomat {
                         tilbage = scan.nextInt();
                     }
                     break;
+                case 4:
+                    System.out.println("Der er kun adgang for instalatører");
+                    System.out.println("Skriv dit brugernavn:");
+                    String brugerNavn = scan.next();
+                    System.out.println("Skriv dit kodeord");
+                    String kodeord = scan.next();
+
+                    if(brugerNavn.equals("kenn5215") && kodeord.equals("1234")){
+                        System.out.println("============================================");
+                        System.out.println("Ny børnebillet pris:");
+                        int nyBørnePris = scan.nextInt();
+                        System.out.println("Ny voksenbillet pris:");
+                        int nyVoksenPris = scan.nextInt();
+                        System.out.println("Ny cykelbillet pris:");
+                        int nyCykelPris = scan.nextInt();
+                        System.out.println("============================================");
+                        kurv.setBilletPris(nyVoksenPris,nyBørnePris,nyCykelPris);
+                    }else{
+                        System.out.println("Forkert brugernavn eller adgangskode....");
+                        System.out.println("Skriv et eller andet for at gå tilbage");
+                        String ignorer = scan.next();
+                    }
+                    break;
                 case 0:
                     System.out.println("============================================");
                     System.out.println("Tak og farvel!");
@@ -63,6 +87,7 @@ public class BenytBilletautomat {
 
             }
         }
+        kurv.skrivTilFIl();
     }
 
     public static void KøbBillet(Billetautomat automat, IndkøbsKurv kurv){
