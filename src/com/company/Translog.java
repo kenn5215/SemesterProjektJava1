@@ -51,7 +51,7 @@ public class Translog {
 
             temp.dato = formatter.parse(filelog[0]);
 //Prøver at læse en dato fra filen i et nyt log
-            System.out.println(dato);
+            System.out.println(temp.dato);
 
 
 
