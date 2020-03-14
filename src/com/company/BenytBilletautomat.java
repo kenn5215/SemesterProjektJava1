@@ -11,6 +11,8 @@ public class BenytBilletautomat {
         IndkøbsKurv kurv = new IndkøbsKurv();
         Translog translog = new Translog();
 
+        translog.læsFraFil();
+
         System.out.println("============================================");
         System.out.println("| Hej velkommen til denne billet automat    |");
         System.out.println("|                                           |");

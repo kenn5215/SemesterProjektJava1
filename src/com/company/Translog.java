@@ -1,5 +1,11 @@
 package com.company;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.nio.Buffer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +19,6 @@ public class Translog {
         int handling;
         int beløb;
 
-        //String til at printe
         Date dato;
     }
 
@@ -26,6 +31,58 @@ public class Translog {
         temp.beløb = beløb;
         temp.dato = new Date();
         log.add(temp);
+    }
+
+    public void læsFraFil(){
+
+        try {
+            transAktion temp = new transAktion();
+            BufferedReader reader = new BufferedReader(new FileReader("translog"));
+            String currentLine;
+            String[] filelog = new String[100];
+            int i = 0;
+
+            while ((currentLine = reader.readLine()) != null){
+                filelog[i] = currentLine;
+                i++;
+            }
+
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
+
+            temp.dato = formatter.parse(filelog[0]);
+//Prøver at læse en dato fra filen i et nyt log
+            System.out.println(dato);
+
+
+
+        }catch (Exception u){
+            System.out.println("Kunne ikke læse filen");
+            u.printStackTrace();
+        }
+
+
+    }
+
+    public void skrivTilFil(){
+
+        File translog = new File("translog");
+        try {
+            PrintWriter pw = new PrintWriter(translog);
+            for (transAktion elem_ : log) {
+                pw.println(elem_.dato.toString() + ": ");
+                if (elem_.handling == 1) {
+                    pw.println("Blev der indsat: " + elem_.beløb + " DKK.");
+                } else if (elem_.handling == 2) {
+                    pw.println("Blev der udskrevet billetter til en værdi af " + elem_.beløb + " DKK. ");
+                } else if (elem_.handling == 3) {
+                    pw.println("Blev der returneret " + elem_.beløb + " DKK. ");
+                }
+            }
+            pw.close();
+
+        }catch (Exception u){
+            System.out.println("Kunne ikke skrive til filen");
+        }
     }
 
     public void printAlleLog() {
@@ -60,6 +117,8 @@ public class Translog {
             }
         }
         System.out.println("=====");
+
+
     }
 
     public void printBeløbOver(int beløb) {
