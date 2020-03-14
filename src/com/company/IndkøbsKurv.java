@@ -139,6 +139,15 @@ public class IndkøbsKurv {
         }
     }
 
+    public void printKurv(){
+        System.out.println("##################################");
+        System.out.println("Du har " + børneBilletAntal + " børnebilletter " + børneBilletPris * børneBilletAntal + " kr.");
+        System.out.println("Du har " + voksenBilletAntal + " voksenbilletter " + voksenBilletPris * voksenBilletAntal + " kr.");
+        System.out.println("Du har " + cykelBilletAntal + " cykelbilletter " + cykelBilletPris * cykelBilletAntal + " kr.\n");
+        System.out.println("I alt    " + getKurvTotalPris() + " KR.");
+        System.out.println("##################################");
+    }
+
     public int getKurvTotalPris()
     {
         return (voksenBilletAntal*voksenBilletPris)+(børneBilletAntal*børneBilletPris) +
@@ -157,19 +166,6 @@ public class IndkøbsKurv {
     {
         return cykelBilletPris;
     }
-    //Retunerer antallet af billetter i kruv
-    public int getVoksenBilletAntal()
-    {
-        return voksenBilletAntal;
-    }
-    public int getBørneBilletAntal()
-    {
-        return børneBilletAntal;
-    }
-    public int getCykelBilletAntal()
-    {
-        return cykelBilletAntal;
-    }
 
     public void tømKurv()
     {
@@ -182,31 +178,6 @@ public class IndkøbsKurv {
             voksenBilletAntal = 0;
             børneBilletAntal = 0;
             cykelBilletAntal = 0;
-        }
-    }
-
-    public void printKurv()
-    {
-        if ((voksenBilletAntal+børneBilletAntal+cykelBilletAntal)==0)
-        {
-            System.out.println("Kurven er tom.");
-        }
-        else
-        {
-            System.out.print("Kurv: ");
-            if(voksenBilletAntal>0)
-            {
-                System.out.print(voksenBilletAntal+"x voksenbillet. ");
-            }
-            if (børneBilletAntal>0)
-            {
-                System.out.print(børneBilletAntal+"x børnebillet. ");
-            }
-            if (cykelBilletAntal>0){
-                System.out.print(cykelBilletAntal+"x cykelbillet.");
-            }
-            System.out.println("");
-            System.out.println("Totalpris: "+getKurvTotalPris()+" DKK");
         }
     }
 

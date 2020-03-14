@@ -46,11 +46,7 @@ public class BenytBilletautomat {
                     break;
 
                 case 2:
-                    System.out.println("================================");
-                    System.out.println("Du har " + kurv.getBørneBilletAntal() + " børnebilletter " + kurv.getBørneBilletPris()*kurv.getBørneBilletAntal() + " kr.");
-                    System.out.println("Du har " + kurv.getVoksenBilletAntal() + " voksenbilletter " + kurv.getVoksenBilletPris()*kurv.getVoksenBilletAntal() + " kr.");
-                    System.out.println("Du har " + kurv.getCykelBilletAntal() + " cykelbilletter " + kurv.getCykelBilletPris()*kurv.getCykelBilletAntal() + " kr.");
-                    System.out.println("================================");
+                   kurv.printKurv();
                     break;
                 case 3:
                     System.out.println("Hvor mange penge vil du indsætte?");
@@ -77,16 +73,18 @@ public class BenytBilletautomat {
                 case 5:
                     int balance = automat.getBalance();
                     int totalPris = kurv.getKurvTotalPris();
+                    int diff = totalPris-balance;
 
                     if(totalPris == 0){
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        System.out.println("Du har ikke købt noget endnu");
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Du har ikke lagt noget i din kurv endnu");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     }else if(balance >= totalPris){
-                        automat.udskrivBillet();
+                        automat.udskrivBillet(kurv.getKurvTotalPris());
+                        kurv.tømKurv();
                         translog.tilføjHandling(2, totalPris);
                     }else {
-                        int diff = totalPris-balance;
+
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         System.out.println("Maskinen mangler " + diff + " KR. før du kan få dine billetter");
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -142,22 +140,30 @@ public class BenytBilletautomat {
 
             while (!scan.hasNextInt()){
                 scan.next();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println("Du skal indtaste et tal");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
             }
             option = scan.nextInt();
             switch (option) {
                 case 1:
+                    System.out.println("============================");
                     System.out.println("Hvor mange Børnebilletter?");
+                    System.out.println("============================");
                     int antalBørnebilletter = scan.nextInt();
                     kurv.addBillet('b', antalBørnebilletter);
                     break;
                 case 2:
+                    System.out.println("============================");
                     System.out.println("Hvor mange voksenbilletter?");
+                    System.out.println("============================");
                     int antalVoksenbilletter = scan.nextInt();
                     kurv.addBillet('v', antalVoksenbilletter);
                     break;
                 case 3:
+                    System.out.println("============================");
                     System.out.println("Hvor mange cykelbilletter?");
+                    System.out.println("============================");
                     int antalCykelbilletter = scan.nextInt();
                     kurv.addBillet('c', antalCykelbilletter);
                     break;

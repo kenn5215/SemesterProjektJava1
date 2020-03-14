@@ -104,7 +104,14 @@ public class Billetautomat {
     }
 
     public void indsætPenge(int beløb) {
-        balance = balance + beløb;
+        if(beløb < 0){
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Indtast venligst et beløb over 0");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            balance = 0;
+        }else {
+            balance = balance + beløb;
+        }
     }
 
 
@@ -113,9 +120,9 @@ public class Billetautomat {
     }
 
 
-    public void udskrivBillet() {
+    public void udskrivBillet(int totalPris) {
         antalBilletterSolgt = antalBilletterSolgt + 1;
-        balance -= voksenPris;             // Nulstil balance
+        balance -= totalPris;
 
         System.out.println("##########B##T##########");
         System.out.println("# Borgen Trafikselskab #");

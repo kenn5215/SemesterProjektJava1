@@ -46,14 +46,14 @@ public class Translog {
                 filelog[i] = currentLine;
                 i++;
             }
-
+/*
             SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
 
             temp.dato = formatter.parse(filelog[0]);
 //Prøver at læse en dato fra filen i et nyt log
             System.out.println(temp.dato);
 
-
+*/
 
         }catch (Exception u){
             System.out.println("Kunne ikke læse filen");
