@@ -391,6 +391,7 @@ public class BenytBilletautomat {
                                         System.out.println("Du skal indtaste et tal");
                                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
                                     }
+                                    //ingenting
                                     int maxBeløb = scan.nextInt();
                                     translog.printBeløbOver(maxBeløb);
                                     break;
