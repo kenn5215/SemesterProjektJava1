@@ -14,7 +14,7 @@ public class Billetautomat {
     public Billetautomat() {
     }
 
-    private void loginOplysninger(){
+    public void loginOplysninger(){
         Scanner scan = new Scanner(System.in);
         File login = new File("LoginOplysninger");
 
@@ -50,152 +50,7 @@ public class Billetautomat {
     }
 
 
-    public void adminMenu(IndkøbsKurv kurv, Translog translog){
-        Scanner scan = new Scanner(System.in);
 
-        loginOplysninger();
-
-        System.out.println("Der er kun adgang for installatører");
-        //Brugernavn
-        System.out.println("Skriv dit brugernavn:");
-        String indtastetBrugernavn = scan.next();
-        //Kodeord
-        System.out.println("Skriv dit kodeord");
-        String indtastetKodeord = scan.next();
-
-        //Tjekker om login oplysninger stemmer overens.
-        if (indtastetBrugernavn.equals(brugernavn) && indtastetKodeord.equals(kodeord)) {
-            int option = 1;
-            while (option != 0) {
-                System.out.println("=========================================================");
-                System.out.println("Du har følgende muligheder:                 ");
-                System.out.println("=========================================================");
-                System.out.println("Tryk 1 for: Ændre billetprisen              ");
-                System.out.println("*********************************************************");
-                System.out.println("Tryk 2 for: For manuelt at sætte maskinens balance.      ");
-                System.out.println("*********************************************************");
-                System.out.println("Tryk 3 for: Check totalt antal solgt                       ");
-                System.out.println("*********************************************************");
-                System.out.println("Tryk 4 for: Print log                       ");
-                System.out.println("*********************************************************");
-                System.out.println("Tryk 0 for: Afslut                          ");
-                System.out.println("*********************************************************");
-                while (!scan.hasNextInt()){
-                    scan.next();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Du skal indtaste et tal");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                }
-                option = scan.nextInt();
-                switch (option) {
-                    case 1:
-                        System.out.println("============================================");
-                        System.out.println("Ny børnebillet pris:");
-                        int nyBørnePris = scan.nextInt();
-                        System.out.println("Ny voksenbillet pris:");
-                        int nyVoksenPris = scan.nextInt();
-                        System.out.println("Ny cykelbillet pris:");
-                        int nyCykelPris = scan.nextInt();
-                        System.out.println("============================================");
-                        kurv.setBilletPris(nyVoksenPris, nyBørnePris, nyCykelPris);
-                        break;
-                    case 2:
-                        System.out.println("=================================================");
-                        System.out.println("Indtast ny balance: (husk at reset'e efter endt test)");
-                        System.out.println("=================================================");
-                        while (!scan.hasNextInt()){
-                            scan.next();
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                            System.out.println("Du skal indtaste et tal");
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                        }
-                        balance = scan.nextInt();
-                        break;
-                    case 3:
-                        System.out.println("Der er blevet solgt "+antalBilletterSolgt+ " billetter til en totalpris af " +totaltBeløbSolgt+" DKK.");
-                        break;
-                    case 4:
-                        System.out.println("=================================================");
-                        System.out.println("Du har nu følgende muligheder");
-                        System.out.println("=================================================");
-                        System.out.println("Tryk 1 for at printe alle handlinger siden sidst");
-                        System.out.println("*************************************************");
-                        System.out.println("Tryk 2 for at printe alle handlinger der håndterede beløb over x DKK");
-                        System.out.println("*************************************************");
-                        System.out.println("Tryk 3 for at printe en bestemt type handlinger   ");
-                        System.out.println("*************************************************");
-                        System.out.println("Tryk 4 for at printe alle handlinger maskinen har foretaget siden opsætning");
-                        System.out.println("*************************************************");
-
-                        while (!scan.hasNextInt()){
-                            scan.next();
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                            System.out.println("Du skal indtaste et tal");
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                        }
-                        option = scan.nextInt();
-                        if (option == 1)
-                        {
-                            translog.printAlleLog();
-                        }
-                        else if (option == 2)
-                        {
-                            System.out.println("======================================================");
-                            System.out.println("Indtast den værdi du vil have printet handlinger over");
-                            System.out.println("=======================================================");
-                            while (!scan.hasNextInt()){
-                                scan.next();
-                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                System.out.println("Du skal indtaste et tal");
-                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                            }
-                            int maxBeløb = scan.nextInt();
-                            translog.printBeløbOver(maxBeløb);
-                        }
-                        else if(option == 3)
-                        {
-                            System.out.println("======================================================");
-                            System.out.println("Indtast hvilken type handlinger du vil have printet");
-                            System.out.println("======================================================");
-                            System.out.println("Tryk 1 for indbetalinger                              ");
-                            System.out.println("******************************************************");
-                            System.out.println("Tryk 2 for billeter udskrevet                         ");
-                            System.out.println("******************************************************");
-                            System.out.println("Tryk 3 for udbetalinger                                 ");
-                            System.out.println("******************************************************");
-
-                            while (!scan.hasNextInt()){
-                                scan.next();
-                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                System.out.println("Du skal indtaste et tal");
-                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                            }
-                            int typeHandling = scan.nextInt();
-                            translog.printPerHandling(typeHandling);
-                        }
-                        break;
-                }
-            }
-        }else{
-                System.out.println("Forkert brugernavn eller adgangskode....");
-                System.out.println("Tryk 0 for at gå retur");
-                String ignorer = scan.next();
-            }
-    }
-
-    public void indsætPenge(int beløb) {
-
-        if(beløb > 0){
-            balance += beløb;
-            System.out.println("##############################################");
-            System.out.println("Du har nu " + balance + " KR. i maskinen");
-            System.out.println("##############################################");
-        }else {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("Du skal indsætte et beløb som er større end 0");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
-    }
 
     public void setBalance(int nyBalance)
     {
@@ -204,6 +59,16 @@ public class Billetautomat {
 
     public int getBalance() {
         return balance;
+    }
+
+    public int getAntalBilletterSolgt()
+    {
+        return antalBilletterSolgt;
+    }
+
+    public int getTotaltBeløbSolgt()
+    {
+        return totaltBeløbSolgt;
     }
 
     public void udskrivBillet(int voksenAntal, int børneAntal, int cykelAntal, int totalPris) {
@@ -244,6 +109,28 @@ public class Billetautomat {
         System.out.println("");
 
         balance = 0;
+    }
+
+    public boolean checkLogin(String brugerGæt,String kodegæt)
+    {
+        if (brugerGæt.equals(brugernavn) && kodegæt.equals(kodeord)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void indsætPenge(int beløb) {
+
+        if(beløb > 0){
+            balance += beløb;
+            System.out.println("##############################################");
+            System.out.println("Du har nu " + balance + " KR. i maskinen");
+            System.out.println("##############################################");
+        }else {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Du skal indsætte et beløb som er større end 0");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
     }
 
 }
