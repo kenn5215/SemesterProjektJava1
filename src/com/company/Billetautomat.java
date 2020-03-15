@@ -4,9 +4,6 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Billetautomat {
-    private int børnePris;    // Børne Prisen for én billet.
-    private int voksenPris;    // Voksen Prisen for én billet.
-    private int cykelPris;    // Voksen Prisen for én billet.
     private int balance; // Hvor mange penge kunden p.t. har puttet i automaten
     private int antalBilletterSolgt; // Antal billetter automaten i alt har solgt
     private String brugernavn;
@@ -21,7 +18,7 @@ public class Billetautomat {
         File login = new File("LoginOplysninger");
 
         if(login.length() == 0){
-            System.out.println("Denne maskine er helt ny og der ikke oprettet en bruger, venlist opret en bruger");
+            System.out.println("Denne maskine er helt ny og der ikke oprettet en bruger. Opret venligst en bruger");
             System.out.println("Vælg dit brugernavn:");
             brugernavn = scan.next();
             System.out.println("vælg dit kodeord:");
@@ -57,27 +54,35 @@ public class Billetautomat {
 
         loginOplysninger();
 
-        System.out.println("Der er kun adgang for instalatører");
+        System.out.println("Der er kun adgang for installatører");
         //Brugernavn
         System.out.println("Skriv dit brugernavn:");
-        String intastetBrugerNavn = scan.next();
+        String indtastetBrugernavn = scan.next();
         //Kodeord
         System.out.println("Skriv dit kodeord");
-        String intastetKodeord = scan.next();
+        String indtastetKodeord = scan.next();
 
         //Tjekker om login oplysninger stemmer overens.
-        if (intastetBrugerNavn.equals(brugernavn) && intastetKodeord.equals(kodeord)) {
+        if (indtastetBrugernavn.equals(brugernavn) && indtastetKodeord.equals(kodeord)) {
             int option = 1;
             while (option != 0) {
-                System.out.println("============================================");
+                System.out.println("=========================================================");
                 System.out.println("Du har følgende muligheder:                 ");
-                System.out.println("============================================");
+                System.out.println("=========================================================");
                 System.out.println("Tryk 1 for: Ændre billetprisen              ");
-                System.out.println("********************************************");
-                System.out.println("Tryk 2 for: Print log                       ");
-                System.out.println("********************************************");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 2 for: For manuelt at sætte maskinens balance.      ");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 3 for: Print log                       ");
+                System.out.println("*********************************************************");
                 System.out.println("Tryk 0 for: Afslut                          ");
-                System.out.println("********************************************");
+                System.out.println("*********************************************************");
+                while (!scan.hasNextInt()){
+                    scan.next();
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("Du skal indtaste et tal");
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                }
                 option = scan.nextInt();
                 switch (option) {
                     case 1:
@@ -92,49 +97,84 @@ public class Billetautomat {
                         kurv.setBilletPris(nyVoksenPris, nyBørnePris, nyCykelPris);
                         break;
                     case 2:
+                        System.out.println("=================================================");
+                        System.out.println("Indtast ny balance: (husk at reset'e efter endt test)");
+                        System.out.println("=================================================");
+                        while (!scan.hasNextInt()){
+                            scan.next();
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            System.out.println("Du skal indtaste et tal");
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
+                        balance = scan.nextInt();
+                        break;
+                    case 3:
                         translog.printAlleLog();
                         break;
                 }
             }
         }else{
                 System.out.println("Forkert brugernavn eller adgangskode....");
-                System.out.println("Skriv et eller andet for at gå tilbage");
+                System.out.println("Tryk 0 for at gå retur");
                 String ignorer = scan.next();
             }
     }
 
+
+
+
+
+
+
     public void indsætPenge(int beløb) {
-        if(beløb < 0){
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("Indtast venligst et beløb over 0");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            balance = 0;
-        }else {
-            balance = balance + beløb;
-        }
+        balance = balance + beløb;
     }
 
+    public void setBalance(int nyBalance)
+    {
+        balance = nyBalance;
+    }
 
     public int getBalance() {
         return balance;
     }
 
-
-    public void udskrivBillet(int totalPris) {
-        antalBilletterSolgt = antalBilletterSolgt + 1;
-        balance -= totalPris;
+    public void udskrivBillet(int voksenAntal, int børneAntal, int cykelAntal, int totalPris) {
+        antalBilletterSolgt = antalBilletterSolgt + (voksenAntal+ børneAntal+ cykelAntal);
+        balance -= totalPris;             // Nulstil balance
 
         System.out.println("##########B##T##########");
         System.out.println("# Borgen Trafikselskab #");
         System.out.println("#                      #");
-        System.out.println("#        Billet        #");
-        System.out.println("#        " + voksenPris + " kr.        #");
+        System.out.println("#      Billet          #");
+        if (voksenAntal>0)
+        {
+            System.out.println("#      "+voksenAntal+" x Voksen      #");
+        }
+        if (børneAntal>0)
+        {
+            System.out.println("#      "+børneAntal+" x Barn        #");
+        }
+        if (cykelAntal>0)
+        {
+            System.out.println("#      "+cykelAntal+" x Cykel       #");
+        }
         System.out.println("#                      #");
-        System.out.println("# Du har " + balance + " kr til gode #");
         System.out.println("##########B##T##########");
-        System.out.println();
+        System.out.println("");
     }
+    public void udskrivReturPenge()
+    {
+        System.out.println("########################");
+        System.out.println("# "+ balance+" DKK               #");
+        System.out.println("#                      #");
+        System.out.println("#   Legitime           #");
+        System.out.println("#     danske dollaz    #");
+        System.out.println("#                      #");
+        System.out.println("########################");
+        System.out.println("");
 
-
+        balance = 0;
+    }
 
 }

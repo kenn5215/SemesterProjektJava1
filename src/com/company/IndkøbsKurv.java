@@ -121,6 +121,7 @@ public class IndkøbsKurv {
         {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             System.out.println("Antal billetter ikke accepteret.");
+            System.out.println("Du kan kun købe imellem 1 og 30.");
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             return;
@@ -137,6 +138,23 @@ public class IndkøbsKurv {
         {
             cykelBilletAntal += antal;
         }
+    }
+
+    public int getBilletAntal(char type)
+    {
+        if(type=='v')
+        {
+            return voksenBilletAntal;
+        }
+        else if(type=='b')
+        {
+            return børneBilletAntal;
+        }
+        else if(type=='c')
+        {
+            return cykelBilletAntal;
+        }
+        return 0;
     }
 
     public void printKurv(){
