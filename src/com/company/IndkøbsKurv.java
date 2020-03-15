@@ -29,10 +29,28 @@ public class IndkøbsKurv {
         //Hvis Filen startFil er tom skal der indstilles priser på billetterne
         if(erTom){
             System.out.println("Skriv prisen for en børnebillet:");
+            while (!scan.hasNextInt()){
+                scan.next();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("Du skal indtaste et tal");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
             børneBilletPris = scan.nextInt();
             System.out.println("Skriv prisen for en voksenbillet:");
+            while (!scan.hasNextInt()){
+                scan.next();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("Du skal indtaste et tal");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
             voksenBilletPris = scan.nextInt();
             System.out.println("Skriv prisen for en cykelbillet:");
+            while (!scan.hasNextInt()){
+                scan.next();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("Du skal indtaste et tal");
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
             cykelBilletPris = scan.nextInt();
         }else{
             //Hvis filen ikke er tom skal vi nu læse fra den fil
