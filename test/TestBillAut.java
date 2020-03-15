@@ -69,7 +69,6 @@ public class TestBillAut
     @Test
     public void test() {
         IndkøbsKurv kurv = new IndkøbsKurv();
-
         kurv.tømKurv();
         assertEquals(0 , kurv.getKurvTotalPris());
     }
