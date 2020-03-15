@@ -21,6 +21,13 @@ public class TestBillAut
     }
 
     @Test
+    public void indsætStorePenge() {
+        Billetautomat automat = new Billetautomat();
+        automat.indsætPenge(10000);
+        assertEquals(0 , automat.getBalance());
+    }
+
+    @Test
     public void KøbBørneBilletter() {
         IndkøbsKurv kurv = new IndkøbsKurv();
         kurv.addBillet('b', 5);
@@ -62,13 +69,6 @@ public class TestBillAut
         kurv.addBillet('c', 4);
         kurv.addBillet('v', 10);
         kurv.addBillet('b', 2);
-        kurv.tømKurv();
-        assertEquals(0 , kurv.getKurvTotalPris());
-    }
-
-    @Test
-    public void test() {
-        IndkøbsKurv kurv = new IndkøbsKurv();
         kurv.tømKurv();
         assertEquals(0 , kurv.getKurvTotalPris());
     }

@@ -12,7 +12,7 @@ public class BenytBilletautomat {
         Translog translog = new Translog();
 
         System.out.println("============================================");
-        System.out.println("| Hej velkommen til denne billet automat    |");
+        System.out.println("| Hej velkommen til BT billet automat       |");
         System.out.println("|                                           |");
 
         int option = 5;
@@ -57,7 +57,6 @@ public class BenytBilletautomat {
                     else
                     {
                         kurv.printKurv();
-
                         System.out.println("============================================");
                         System.out.println("Tryk 1 for: Tøm kurv                        ");
                         System.out.println("============================================");
@@ -293,7 +292,7 @@ public class BenytBilletautomat {
     public static void adminmenu (Billetautomat automat,IndkøbsKurv kurv, Translog translog)
     {
         Scanner scan = new Scanner(System.in);
-        automat.loginOplysninger();
+
 
         System.out.println("Der er kun adgang for installatører");
         //Brugernavn
@@ -331,10 +330,33 @@ public class BenytBilletautomat {
                     case 1:
                         System.out.println("============================================");
                         System.out.println("Ny børnebillet pris:");
+                        System.out.println("============================================");
+                        while (!scan.hasNextInt()){
+                            scan.next();
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            System.out.println("Du skal indtaste et tal");
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
                         int nyBørnePris = scan.nextInt();
+                        System.out.println("============================================");
                         System.out.println("Ny voksenbillet pris:");
+                        System.out.println("============================================");
+                        while (!scan.hasNextInt()){
+                            scan.next();
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            System.out.println("Du skal indtaste et tal");
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
                         int nyVoksenPris = scan.nextInt();
+                        System.out.println("============================================");
                         System.out.println("Ny cykelbillet pris:");
+                        System.out.println("============================================");
+                        while (!scan.hasNextInt()){
+                            scan.next();
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            System.out.println("Du skal indtaste et tal");
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
                         int nyCykelPris = scan.nextInt();
                         System.out.println("============================================");
                         kurv.setBilletPris(nyVoksenPris, nyBørnePris, nyCykelPris);

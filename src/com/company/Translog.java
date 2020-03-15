@@ -37,21 +37,28 @@ public class Translog {
 
 
     public StringBuilder læsFraFil(){
+        //Opretter stringbuilder til at læse alt dataten fra filen translog
         StringBuilder logFile = new StringBuilder();
+        //Opretter en fil translog hvis denne ikke er oprettet før
+        File translog = new File("translog");
 
-        try {
-            String currentLine;
-            BufferedReader reader = new BufferedReader(new FileReader("translog"));
+        //tjekker om filen existere ellers vil jeg ikke læse fra denne fil
+        if(translog.exists()){
+            try {
+                String currentLine;
+                BufferedReader reader = new BufferedReader(new FileReader("translog"));
 
-            while ((currentLine = reader.readLine()) != null){
-                logFile.append(currentLine);
-                logFile.append("\n");
+                while ((currentLine = reader.readLine()) != null){
+                    logFile.append(currentLine);
+                    logFile.append("\n");
+                }
+
+            }catch (Exception u){
+                System.out.println("Kunne ikke læse filen");
+                u.printStackTrace();
             }
-
-        }catch (Exception u){
-            System.out.println("Kunne ikke læse filen");
-            u.printStackTrace();
         }
+
 
 
         return logFile;
@@ -59,11 +66,15 @@ public class Translog {
 
 
     public void skrivTilLogFil(){
+        //Opretter en stringbuilder til at indeholde alt vores data for tidligere logs som er skrevet til translog
         StringBuilder logFile = new StringBuilder();
+        //Opretter en translog fil hvis ikke allerede denne er oprettet.
         File translog = new File("translog");
 
+        //Kalder min læsfrafil som retunere en stringbuilder som indeholder data fra translog
         logFile = læsFraFil();
 
+        //foreach løkke til at skrive fra vores arraylist af transaktioner til logfile, her bliver der skrevet afhængigt af hvilken handling
         for (transAktion elem_ : log) {
             logFile.append(elem_.dato.toString()).append(": ");
             if (elem_.handling == 1) {
@@ -75,6 +86,7 @@ public class Translog {
             }
         }
 
+        //Alt data samlet i logfile skal nu skrives til vores fil og her bruger jeg try catch, hvis der sker en fejl får vi advide hvad der skete og programmet kan fortsætte
         try {
             PrintWriter pw = new PrintWriter(translog);
             pw.println(logFile);
@@ -86,6 +98,7 @@ public class Translog {
             System.out.println("Kunne ikke skrive til logfilen");
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
+        //Når jeg har skrevet til filen sletter jeg indholdet i arraylisten log, for ikke har skrive det samme flere gange hvis jeg kalder funktionen igen
         log.clear();
 
     }

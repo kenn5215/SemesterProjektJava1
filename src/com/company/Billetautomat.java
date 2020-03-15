@@ -12,12 +12,15 @@ public class Billetautomat {
 
 
     public Billetautomat() {
+        loginOplysninger();
     }
 
     public void loginOplysninger(){
         Scanner scan = new Scanner(System.in);
         File login = new File("LoginOplysninger");
 
+        //Her tjekker jeg længden på min fil og hvis filen er 0 må det være første gang maskinen sættes i brug
+        //og der burde oprettes en bruger
         if(login.length() == 0){
             System.out.println("Denne maskine er helt ny og der ikke oprettet en bruger. Opret venligst en bruger");
             System.out.println("Vælg dit brugernavn:");
@@ -25,6 +28,7 @@ public class Billetautomat {
             System.out.println("vælg dit kodeord:");
             kodeord = scan.next();
 
+            //Bruger try catch for at fange hvis der skulle komme fejl og kører videre med programmet så det ikke crasher
             try {
                 PrintWriter pw = new PrintWriter(login);
                 pw.println(brugernavn);
@@ -36,6 +40,8 @@ public class Billetautomat {
             }
 
         }else{
+            //Hvis filen ikke er tom skal der bare læses brugernavn og kodeord fra filen og sættes  lig med variablerne så de kan bruges
+            //til at tjekke login adgang
             try{
                 BufferedReader reader = new BufferedReader(new FileReader(login));
 
@@ -48,9 +54,6 @@ public class Billetautomat {
 
 
     }
-
-
-
 
     public void setBalance(int nyBalance)
     {
@@ -121,15 +124,15 @@ public class Billetautomat {
 
     public void indsætPenge(int beløb) {
 
-        if(beløb > 0){
+        if(beløb > 0 && beløb <= 1000){
             balance += beløb;
             System.out.println("##############################################");
             System.out.println("Du har nu " + balance + " KR. i maskinen");
             System.out.println("##############################################");
         }else {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("Du skal indsætte et beløb som er større end 0");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("vi kan kun tage imod positive beløb og vi tager højest imod 1000kr af gangen");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
