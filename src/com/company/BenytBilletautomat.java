@@ -422,6 +422,7 @@ public class BenytBilletautomat {
                                 case 4:
                                     break;
                             }
+
                         }
                         option = 1;
                         break;
