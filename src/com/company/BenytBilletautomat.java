@@ -209,7 +209,7 @@ public class BenytBilletautomat {
                     }
                     break;
                 case 8:
-                    automat.adminMenu(kurv, translog);
+                    adminmenu(automat, kurv, translog);
                     break;
                 case 0:
                     System.out.println("============================================");
@@ -290,4 +290,156 @@ public class BenytBilletautomat {
         }
     }
 
+    public static void adminmenu (Billetautomat automat,IndkøbsKurv kurv, Translog translog)
+    {
+        Scanner scan = new Scanner(System.in);
+        automat.loginOplysninger();
+
+        System.out.println("Der er kun adgang for installatører");
+        //Brugernavn
+        System.out.println("Skriv dit brugernavn: (Begge er \"LoginOplysninger\" ovre til venstre på skærmen");
+        String indtastetBrugernavn =scan.next();
+        //Kodeord
+        System.out.println("Skriv dit kodeord");
+        String indtastetKodeord = scan.next();
+
+        //Tjekker om login oplysninger stemmer overens.
+        if (automat.checkLogin(indtastetBrugernavn,indtastetKodeord)) {
+            int option = 1;
+            while (option != 0) {
+                System.out.println("=========================================================");
+                System.out.println("Du har følgende muligheder:                 ");
+                System.out.println("=========================================================");
+                System.out.println("Tryk 1 for: Ændre billetprisen              ");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 2 for: For manuelt at sætte maskinens balance.      ");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 3 for: Check totalt antal solgt                       ");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 4 for: Print log                       ");
+                System.out.println("*********************************************************");
+                System.out.println("Tryk 0 for: Afslut                          ");
+                System.out.println("*********************************************************");
+                while (!scan.hasNextInt()){
+                    scan.next();
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println("Du skal indtaste et tal");
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                }
+                option = scan.nextInt();
+                switch (option) {
+                    case 1:
+                        System.out.println("============================================");
+                        System.out.println("Ny børnebillet pris:");
+                        int nyBørnePris = scan.nextInt();
+                        System.out.println("Ny voksenbillet pris:");
+                        int nyVoksenPris = scan.nextInt();
+                        System.out.println("Ny cykelbillet pris:");
+                        int nyCykelPris = scan.nextInt();
+                        System.out.println("============================================");
+                        kurv.setBilletPris(nyVoksenPris, nyBørnePris, nyCykelPris);
+                        break;
+                    case 2:
+                        System.out.println("=================================================");
+                        System.out.println("Indtast ny balance: (husk at reset'e efter endt test)");
+                        System.out.println("=================================================");
+                        while (!scan.hasNextInt()){
+                            scan.next();
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            System.out.println("Du skal indtaste et tal");
+                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
+                        int nyBalance = scan.nextInt();
+                        automat.setBalance(nyBalance);
+                        break;
+                    case 3:
+                        System.out.println("Der er blevet solgt "+automat.getAntalBilletterSolgt()+ " billetter til en totalpris af " +automat.getTotaltBeløbSolgt()+" DKK.");
+                        break;
+                    case 4:
+                        while (option !=0) {
+                            System.out.println("=================================================");
+                            System.out.println("Du har nu følgende muligheder");
+                            System.out.println("=================================================");
+                            System.out.println("Tryk 1 for at printe alle handlinger siden sidst");
+                            System.out.println("*************************************************");
+                            System.out.println("Tryk 2 for at printe alle handlinger der håndterede beløb over x DKK");
+                            System.out.println("*************************************************");
+                            System.out.println("Tryk 3 for at printe en bestemt type handlinger   ");
+                            System.out.println("*************************************************");
+                            System.out.println("Tryk 4 for at printe alle handlinger maskinen har foretaget siden opsætning");
+                            System.out.println("*************************************************");
+                            System.out.println("Tryk 0 for at gå retur");
+                            System.out.println("*************************************************");
+
+                            while (!scan.hasNextInt()) {
+                                scan.next();
+                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                System.out.println("Du skal indtaste et tal");
+                                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                            }
+                            option = scan.nextInt();
+                            if (option == 1) {
+                                translog.printAlleLog();
+                            }
+                            else if (option == 2) {
+                                System.out.println("======================================================");
+                                System.out.println("Indtast den værdi du vil have printet handlinger over");
+                                System.out.println("=======================================================");
+                                while (!scan.hasNextInt()) {
+                                    scan.next();
+                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                    System.out.println("Du skal indtaste et tal");
+                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                }
+                                int maxBeløb = scan.nextInt();
+                                translog.printBeløbOver(maxBeløb);
+                            }
+                            else if (option == 3) {
+
+                                System.out.println("======================================================");
+                                System.out.println("Indtast hvilken type handlinger du vil have printet");
+                                System.out.println("======================================================");
+                                System.out.println("Tryk 1 for indbetalinger                              ");
+                                System.out.println("******************************************************");
+                                System.out.println("Tryk 2 for billeter udskrevet                         ");
+                                System.out.println("******************************************************");
+                                System.out.println("Tryk 3 for udbetalinger                                 ");
+                                System.out.println("******************************************************");
+                                System.out.println("Tryk 0 for at gå retur");
+                                System.out.println("*************************************************");
+
+                                while (!scan.hasNextInt()) {
+                                    scan.next();
+                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                    System.out.println("Du skal indtaste et tal");
+                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                }
+                                int typeHandling = scan.nextInt();
+                                if(typeHandling<=3 && typeHandling>=1)
+                                {
+                                    translog.printPerHandling(typeHandling);
+                                }
+                                else if (typeHandling== 0)
+                                {
+
+                                }
+                                else
+                                {
+                                    System.out.println("Forkert input");
+                                }
+
+
+                            }
+                        }
+                        option = 1;
+                        break;
+                }
+            }
+        }
+        else{
+            System.out.println("Forkert brugernavn eller adgangskode....");
+            System.out.println("Tryk 0 for at gå retur");
+            String ignorer = scan.next();
+        }
+    }
 }
