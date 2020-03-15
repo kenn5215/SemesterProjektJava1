@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.nio.Buffer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,18 +31,16 @@ public class Translog {
         log.add(temp);
     }
 
-    public void læsFraFil(){
+    public StringBuilder læsFraFil(){
+        StringBuilder logFile = new StringBuilder();
 
         try {
-            transAktion temp = new transAktion();
-            BufferedReader reader = new BufferedReader(new FileReader("translog"));
             String currentLine;
-            String[] filelog = new String[100];
-            int i = 0;
+            BufferedReader reader = new BufferedReader(new FileReader("translog"));
 
             while ((currentLine = reader.readLine()) != null){
-                filelog[i] = currentLine;
-                i++;
+                logFile.append(currentLine);
+                logFile.append("\n");
             }
 
         }catch (Exception u){
@@ -53,27 +49,35 @@ public class Translog {
         }
 
 
+        return logFile;
     }
 
-    public void skrivTilFil(){
-
+    public void skrivTilLogFil(){
+        StringBuilder logFile = new StringBuilder();
         File translog = new File("translog");
+
+        logFile = læsFraFil();
+
+        for (transAktion elem_ : log) {
+            logFile.append(elem_.dato.toString()).append(": ");
+            if (elem_.handling == 1) {
+               logFile.append("Blev der indsat: ").append(elem_.beløb).append(" DKK.\n");
+            } else if (elem_.handling == 2) {
+                logFile.append("Blev der udskrevet billetter til en værdi af ").append(elem_.beløb).append(" DKK.\n");
+            } else if (elem_.handling == 3) {
+                logFile.append("Blev der returneret ").append(elem_.beløb).append(" DKK.\n");
+            }
+        }
+
         try {
             PrintWriter pw = new PrintWriter(translog);
-            for (transAktion elem_ : log) {
-                pw.println(elem_.dato.toString() + ": ");
-                if (elem_.handling == 1) {
-                    pw.println("Blev der indsat: " + elem_.beløb + " DKK.");
-                } else if (elem_.handling == 2) {
-                    pw.println("Blev der udskrevet billetter til en værdi af " + elem_.beløb + " DKK. ");
-                } else if (elem_.handling == 3) {
-                    pw.println("Blev der returneret " + elem_.beløb + " DKK. ");
-                }
-            }
+            pw.println(logFile);
             pw.close();
-
         }catch (Exception u){
-            System.out.println("Kunne ikke skrive til filen");
+            u.printStackTrace();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Kunne ikke skrive til logfilen");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
