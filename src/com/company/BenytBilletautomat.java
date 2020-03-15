@@ -297,7 +297,7 @@ public class BenytBilletautomat {
 
         System.out.println("Der er kun adgang for installatører");
         //Brugernavn
-        System.out.println("Skriv dit brugernavn: (Begge er \"LoginOplysninger\" ovre til venstre på skærmen");
+        System.out.println("Skriv dit brugernavn: (Brugernavn og kodeord er i \"LoginOplysninger\" ovre til venstre på skærmen");
         String indtastetBrugernavn =scan.next();
         //Kodeord
         System.out.println("Skriv dit kodeord");
@@ -420,6 +420,10 @@ public class BenytBilletautomat {
                                     }
                                     break;
                                 case 4:
+                                    translog.skrivTilLogFil();
+
+
+                                    System.out.println(translog.læsFraFil());
                                     break;
                             }
 

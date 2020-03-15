@@ -20,6 +20,9 @@ public class Translog {
         Date dato;
     }
 
+
+
+
     ArrayList<transAktion> log = new ArrayList<transAktion>();
 
     public void tilføjHandling(int handling, int beløb) {
@@ -30,6 +33,8 @@ public class Translog {
         temp.dato = new Date();
         log.add(temp);
     }
+
+
 
     public StringBuilder læsFraFil(){
         StringBuilder logFile = new StringBuilder();
@@ -52,6 +57,7 @@ public class Translog {
         return logFile;
     }
 
+
     public void skrivTilLogFil(){
         StringBuilder logFile = new StringBuilder();
         File translog = new File("translog");
@@ -61,7 +67,7 @@ public class Translog {
         for (transAktion elem_ : log) {
             logFile.append(elem_.dato.toString()).append(": ");
             if (elem_.handling == 1) {
-               logFile.append("Blev der indsat: ").append(elem_.beløb).append(" DKK.\n");
+                logFile.append("Blev der indsat: ").append(elem_.beløb).append(" DKK.\n");
             } else if (elem_.handling == 2) {
                 logFile.append("Blev der udskrevet billetter til en værdi af ").append(elem_.beløb).append(" DKK.\n");
             } else if (elem_.handling == 3) {
@@ -73,12 +79,15 @@ public class Translog {
             PrintWriter pw = new PrintWriter(translog);
             pw.println(logFile);
             pw.close();
-        }catch (Exception u){
+
+        } catch (Exception u) {
             u.printStackTrace();
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             System.out.println("Kunne ikke skrive til logfilen");
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
+        log.clear();
+
     }
 
     public void printAlleLog() {
