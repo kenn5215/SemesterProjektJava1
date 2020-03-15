@@ -206,7 +206,7 @@ public class IndkøbsKurv {
         cykelBilletPris = cyPris;
     }
 
-    public void skrivTilFIl(){
+    public void skrivTilStartFil(){
         try (PrintWriter pw = new PrintWriter("startFil")) {
             pw.println("Børnebillet = " + børneBilletPris + " KR.");
             pw.println("voksenbillet = " + voksenBilletPris + " KR.");
