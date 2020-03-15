@@ -137,6 +137,7 @@ public class BenytBilletautomat {
                             int returJaTak = scan.nextInt();
                             if (returJaTak==1)
                             {
+                                translog.tilføjHandling(3, automat.getBalance());
                                 automat.udskrivReturPenge();
 
                                 System.out.println("Tryk 0 for at gå retur");
@@ -174,6 +175,7 @@ public class BenytBilletautomat {
                         int returJaTak = scan.nextInt();
                         if (returJaTak==1)
                         {
+                            translog.tilføjHandling(3, automat.getBalance());
                             automat.udskrivReturPenge();
 
                             System.out.println("Tryk 0 for at gå retur");
