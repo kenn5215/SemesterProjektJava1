@@ -371,7 +371,6 @@ public class BenytBilletautomat {
                             System.out.println("*************************************************");
                             System.out.println("Tryk 0 for at gå retur");
                             System.out.println("*************************************************");
-
                             while (!scan.hasNextInt()) {
                                 scan.next();
                                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -379,57 +378,49 @@ public class BenytBilletautomat {
                                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
                             }
                             option = scan.nextInt();
-                            if (option == 1) {
-                                translog.printAlleLog();
-                            }
-                            else if (option == 2) {
-                                System.out.println("======================================================");
-                                System.out.println("Indtast den værdi du vil have printet handlinger over");
-                                System.out.println("=======================================================");
-                                while (!scan.hasNextInt()) {
-                                    scan.next();
-                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                    System.out.println("Du skal indtaste et tal");
-                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                }
-                                int maxBeløb = scan.nextInt();
-                                translog.printBeløbOver(maxBeløb);
-                            }
-                            else if (option == 3) {
+                            switch (option) {
+                                case 1:
+                                    translog.printAlleLog();
+                                    break;
+                                case 2:
+                                    System.out.println("======================================================");
+                                    System.out.println("Indtast den værdi du vil have printet handlinger over");
+                                    System.out.println("=======================================================");
+                                    while (!scan.hasNextInt()) {
+                                        scan.next();
+                                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                        System.out.println("Du skal indtaste et tal");
+                                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                    }
+                                    int maxBeløb = scan.nextInt();
+                                    translog.printBeløbOver(maxBeløb);
+                                    break;
+                                case 3:
+                                    System.out.println("======================================================");
+                                    System.out.println("Indtast hvilken type handlinger du vil have printet");
+                                    System.out.println("======================================================");
+                                    System.out.println("Tryk 1 for indbetalinger                              ");
+                                    System.out.println("******************************************************");
+                                    System.out.println("Tryk 2 for billeter udskrevet                         ");
+                                    System.out.println("******************************************************");
+                                    System.out.println("Tryk 3 for udbetalinger                                 ");
+                                    System.out.println("******************************************************");
+                                    System.out.println("Tryk 0 for at gå retur");
+                                    System.out.println("*************************************************");
 
-                                System.out.println("======================================================");
-                                System.out.println("Indtast hvilken type handlinger du vil have printet");
-                                System.out.println("======================================================");
-                                System.out.println("Tryk 1 for indbetalinger                              ");
-                                System.out.println("******************************************************");
-                                System.out.println("Tryk 2 for billeter udskrevet                         ");
-                                System.out.println("******************************************************");
-                                System.out.println("Tryk 3 for udbetalinger                                 ");
-                                System.out.println("******************************************************");
-                                System.out.println("Tryk 0 for at gå retur");
-                                System.out.println("*************************************************");
-
-                                while (!scan.hasNextInt()) {
-                                    scan.next();
-                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                    System.out.println("Du skal indtaste et tal");
-                                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-                                }
-                                int typeHandling = scan.nextInt();
-                                if(typeHandling<=3 && typeHandling>=1)
-                                {
-                                    translog.printPerHandling(typeHandling);
-                                }
-                                else if (typeHandling== 0)
-                                {
-
-                                }
-                                else
-                                {
-                                    System.out.println("Forkert input");
-                                }
-
-
+                                    while (!scan.hasNextInt()) {
+                                        scan.next();
+                                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                        System.out.println("Du skal indtaste et tal");
+                                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+                                    }
+                                    int typeHandling = scan.nextInt();
+                                    if (typeHandling <= 3 && typeHandling >= 1) {
+                                        translog.printPerHandling(typeHandling);
+                                    }
+                                    break;
+                                case 4:
+                                    break;
                             }
                         }
                         option = 1;
