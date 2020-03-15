@@ -32,7 +32,7 @@ public class BenytBilletautomat {
             System.out.println("********************************************");
             System.out.println("Tryk 5 for: Tjek ud                         ");
             System.out.println("********************************************");
-            System.out.println("Tryk 6 for: Returpenge");
+            System.out.println("Tryk 6 for: Returpenge                      ");
             System.out.println("********************************************");
             System.out.println("Tryk 7 for: Læs regler for at rejse med os  ");
             System.out.println("********************************************");
@@ -79,7 +79,9 @@ public class BenytBilletautomat {
                     }
                     break;
                 case 3:
+                    System.out.println("################################");
                     System.out.println("Hvor mange penge vil du indsætte?");
+                    System.out.println("################################");
                     while (!scan.hasNextInt()){
                         scan.next();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -87,17 +89,9 @@ public class BenytBilletautomat {
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
                     }
                     int indsatPenge = scan.nextInt();
-                    if(indsatPenge > 0){
-                        automat.indsætPenge(indsatPenge);
+                    automat.indsætPenge(indsatPenge);
+                    if (indsatPenge > 0){
                         translog.tilføjHandling(1, indsatPenge);
-                        System.out.println("##############################################");
-                        System.out.println("Du har nu " +automat.getBalance() + " KR. i maskinen");
-                        System.out.println("##############################################");
-
-                    }else {
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        System.out.println("Du skal indsætte et beløb som er større end 0");
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     }
                     break;
                 case 4:

@@ -211,7 +211,6 @@ public class IndkøbsKurv {
             pw.println("Børnebillet = " + børneBilletPris + " KR.");
             pw.println("voksenbillet = " + voksenBilletPris + " KR.");
             pw.println("Cykelbillet = " + cykelBilletPris + " KR.");
-            pw.close();
         }catch (Exception u){
             System.out.println("Kunne ikke skrive til startFilen");
             u.printStackTrace();

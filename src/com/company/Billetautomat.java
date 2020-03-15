@@ -120,14 +120,18 @@ public class Billetautomat {
             }
     }
 
-
-
-
-
-
-
     public void indsætPenge(int beløb) {
-        balance = balance + beløb;
+
+        if(beløb > 0){
+            balance += beløb;
+            System.out.println("##############################################");
+            System.out.println("Du har nu " + balance + " KR. i maskinen");
+            System.out.println("##############################################");
+        }else {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Du skal indsætte et beløb som er større end 0");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
     }
 
     public void setBalance(int nyBalance)

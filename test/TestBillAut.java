@@ -6,9 +6,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TestBillAut
 {
-
-
-
     @Test
     public void indsætPenge20() {
         Billetautomat automat = new Billetautomat();
@@ -36,4 +33,37 @@ public class TestBillAut
         kurv.addBillet('v', 5);
         assertEquals(kurv.getVoksenBilletPris() * 5 , kurv.getKurvTotalPris());
     }
+
+    @Test
+    public void KøbCykelBilletterNEGATIV() {
+        IndkøbsKurv kurv = new IndkøbsKurv();
+        kurv.addBillet('c', -2);
+        assertEquals(0 , kurv.getKurvTotalPris());
+    }
+
+    @Test
+    public void Retur() {
+        //Tester om jeg får den rigtige mængde penge retur
+        Billetautomat automat = new Billetautomat();
+        IndkøbsKurv kurv = new IndkøbsKurv();
+
+        automat.indsætPenge(100);
+        assertEquals(100, automat.getBalance());
+        kurv.addBillet('v', 4);
+        automat.udskrivBillet(4, 0, 0, kurv.getKurvTotalPris());
+        int retur = automat.getBalance();
+
+        assertEquals(100 - kurv.getKurvTotalPris(), retur);
+    }
+
+    @Test
+    public void TømKurv() {
+        IndkøbsKurv kurv = new IndkøbsKurv();
+        kurv.addBillet('c', 4);
+        kurv.addBillet('v', 10);
+        kurv.addBillet('b', 2);
+        kurv.tømKurv();
+        assertEquals(0 , kurv.getKurvTotalPris());
+    }
+
 }
