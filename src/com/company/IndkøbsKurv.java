@@ -15,6 +15,7 @@ public class IndkøbsKurv {
 
     public IndkøbsKurv()
     {
+        //ændring
         voksenBilletAntal = 0;
         børneBilletAntal = 0;
         cykelBilletAntal = 0;

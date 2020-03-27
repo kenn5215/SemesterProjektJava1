@@ -12,7 +12,7 @@ public class Translog {
     /*Vi har i vores transaktionslog valgt at indføre 3 handlinger.
      *1: Indsæt penge. 2: Udskriv billet. 3: Udbetal returbeløb.
      */
-    class transAktion {
+    class TransAktion {
         //variable
         int handling;
         int beløb;
@@ -23,10 +23,10 @@ public class Translog {
 
 
 
-    ArrayList<transAktion> log = new ArrayList<transAktion>();
+    ArrayList<TransAktion> log = new ArrayList<TransAktion>();
 
     public void tilføjHandling(int handling, int beløb) {
-        transAktion temp = new transAktion();
+        TransAktion temp = new TransAktion();
 
         temp.handling = handling;
         temp.beløb = beløb;
@@ -75,7 +75,7 @@ public class Translog {
         logFile = læsFraFil();
 
         //foreach løkke til at skrive fra vores arraylist af transaktioner til logfile, her bliver der skrevet afhængigt af hvilken handling
-        for (transAktion elem_ : log) {
+        for (TransAktion elem_ : log) {
             logFile.append(elem_.dato.toString()).append(": ");
             if (elem_.handling == 1) {
                 logFile.append("Blev der indsat: ").append(elem_.beløb).append(" DKK.\n");
@@ -106,7 +106,7 @@ public class Translog {
     public void printAlleLog() {
         Date currentDate = new Date();
         System.out.println("=====Transaktioner pr. " + currentDate.toString());
-        for (transAktion elem_ : log) {
+        for (TransAktion elem_ : log) {
             System.out.print(elem_.dato.toString() + ": ");
             if (elem_.handling == 1) {
                 System.out.println("Blev der indsat: " + elem_.beløb + " DKK.");
@@ -122,7 +122,7 @@ public class Translog {
     public void printPerHandling(int handling) {
         Date currentDate = new Date();
         System.out.println("=====Transaktioner pr. " + currentDate.toString());
-        for (transAktion elem_ : log) {
+        for (TransAktion elem_ : log) {
             if (elem_.handling == handling) {
                 System.out.print(elem_.dato.toString() + ": ");
                 if (elem_.handling == 1) {
@@ -142,7 +142,7 @@ public class Translog {
     public void printBeløbOver(int beløb) {
         Date currentDate = new Date();
         System.out.println("=====Transaktioner pr. " + currentDate.toString());
-        for (transAktion elem_ : log) {
+        for (TransAktion elem_ : log) {
             if (elem_.beløb > beløb) {
                 System.out.print(elem_.dato.toString() + ": ");
                 if (elem_.handling == 1) {
