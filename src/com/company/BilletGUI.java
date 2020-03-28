@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class billetGUI {
+public class BilletGUI {
     private JPanel panel1;
 
     private JLabel balance;
@@ -27,7 +27,7 @@ public class billetGUI {
     Billetautomat billetautomat = new Billetautomat();
     IndkøbsKurv kurv = new IndkøbsKurv();
 
-    public billetGUI() {
+    public BilletGUI() {
 
         tilføjBilletter.addActionListener(new ActionListener() {
             @Override
@@ -68,7 +68,7 @@ public class billetGUI {
         indsatPengeKnap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(!inPenge.getText().isEmpty()){
+                if (!inPenge.getText().isEmpty()) {
                     int pengeIndsat = Integer.parseInt(inPenge.getText());
                     billetautomat.indsætPenge(pengeIndsat);
                     balance.setText(Integer.toString(billetautomat.getBalance()) + " Kr.");
@@ -79,7 +79,7 @@ public class billetGUI {
         returKnap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(billetautomat.getBalance() > 0) {
+                if (billetautomat.getBalance() > 0) {
                     billetautomat.udskrivReturPenge();
                     balance.setText("0 Kr.");
                 }
@@ -89,7 +89,7 @@ public class billetGUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                if(billetautomat.getBalance() >= kurv.getKurvTotalPris() && kurv.getKurvTotalPris() > 0) {
+                if (billetautomat.getBalance() >= kurv.getKurvTotalPris() && kurv.getKurvTotalPris() > 0) {
                     int antalBørn = kurv.getBilletAntal('b');
                     int antalVoksne = kurv.getBilletAntal('V');
                     int antalCykler = kurv.getBilletAntal('c');
@@ -128,14 +128,12 @@ public class billetGUI {
             }
         });
 
-
     }
-
 
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("billetGUI");
-        frame.setContentPane(new billetGUI().panel1);
+        frame.setContentPane(new BilletGUI().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
