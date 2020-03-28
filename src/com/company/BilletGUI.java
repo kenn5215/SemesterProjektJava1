@@ -35,14 +35,17 @@ public class BilletGUI {
                 if (!inBørn.getText().isEmpty()) {
 
                     kurv.addBillet('b', Integer.parseInt(inBørn.getText()));
+                    inBørn.setText("");
                 }
 
                 if (!inVoksen.getText().isEmpty()) {
                     kurv.addBillet('v', Integer.parseInt(inVoksen.getText()));
+                    inVoksen.setText("");
                 }
 
                 if (!inCykel.getText().isEmpty()) {
                     kurv.addBillet('c', Integer.parseInt(inCykel.getText()));
+                    inCykel.setText("");
                 }
                 int antalBørn = kurv.getBilletAntal('b');
                 int antalVoksne = kurv.getBilletAntal('v');
@@ -72,6 +75,7 @@ public class BilletGUI {
                     int pengeIndsat = Integer.parseInt(inPenge.getText());
                     billetautomat.indsætPenge(pengeIndsat);
                     balance.setText(Integer.toString(billetautomat.getBalance()) + " Kr.");
+                    inPenge.setText("");
                 }
 
             }
